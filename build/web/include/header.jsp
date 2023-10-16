@@ -1,6 +1,7 @@
 
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
@@ -19,7 +20,9 @@
     <body>
         <header>
             <div class="header__cont">
-                <div class="header__cont-logo title">VH Express</div>
+                <div class="col-md-2 text-left" >
+                   <span style="color: black; font-weight: bold; font-size: 23px;">VH</span><span style="color: var(--teal);font-weight: bold;font-size: 23px;F">Express</span>
+                </div>
                 <!--<nav class="header__cont-nav">
                     <a href="home.jsp" class="nav-item">Home</a>
                     <a href="search.jsp" class="nav-item">Search</a>
@@ -31,23 +34,10 @@
 
                 <div class="header__cont-user">
                     <i class="fa-solid fa-bars"></i>
-<!--                a    <c:if test="${authority=='ROLE_MEMBER'}">
-                        <div class="role-name">MEMBER</div>
-                    </c:if>
-                    <c:if test="${authority=='ROLE_ADMIN'}">
-                        <div class="role-name">ADMIN</div>
-                    </c:if>
-                    <c:if test="${authority=='ROLE_STAFF'}">
-                        <div class="role-name">STAFF</div>
-                    </c:if>
-                    <c:if test="${authority=='ROLE_DRIVER'}">
-                        <div class="role-name">DRIVER</div>
-                    </c:if>
-                        a-->
                     <div class="role-name">${cur_name}</div>
                     <div class="user-info">
                         <c:if test="${authority=='ROLE_MEMBER'}">
-                            <a href="edit_profile.jsp" class="user-info-item">Edit profile</a>
+                            <a href="editprofile?userid=${cur_user.id}" class="user-info-item">Edit profile</a>            
                         </c:if>
                         <a href="login" class="user-info-item">Log out</a>
                     </div>

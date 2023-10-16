@@ -11,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.entity.Users;
+import model.repository.UserRepository;
 
 /**
  *
@@ -58,6 +60,12 @@ public class EditProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String uid = request.getParameter("userid");
+        System.out.println(uid);
+        UserRepository ur = new UserRepository();
+        Users user = ur.getUserById(uid);
+        request.setAttribute("uinfo", user);
+        request.getRequestDispatcher("edit_profile.jsp").forward(request, response);
 //        processRequest(request, response);
     }
 

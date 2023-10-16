@@ -32,7 +32,7 @@ public class DeleteUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String userid = request.getParameter("uid");
+        String userid = request.getParameter("sid");
         System.out.println(userid); 
         UserRepository ur = new UserRepository();
         ur.deleteUser(userid);
