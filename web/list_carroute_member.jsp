@@ -17,7 +17,6 @@
         <title>Document</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/list_staff.css"/>
-
         <style>
             .carousel{
                 width: 100%;
@@ -186,7 +185,7 @@
         <!-- CAROUSEL-->
         <div class="container">
             <div class="box-search">
-                <form action="listcarroute">
+                <form action="listcarroute" method="POST">
                     <table width="100%" cellspacing="0" class="table-search">
                         <tbody>
                             <tr>

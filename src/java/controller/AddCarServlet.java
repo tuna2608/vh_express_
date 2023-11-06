@@ -48,9 +48,22 @@ public class AddCarServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("name");
+        response.setContentType("text/html;charset=UTF-8");
+        
+        String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+//        String name = request.getParameter("name");
+        System.out.println(name);
         String type = request.getParameter("type");
-        int countseat = Integer.parseInt(request.getParameter("countseat"));
+        
+        int countseat = 0;
+        if(type.equalsIgnoreCase("VIP")){
+            countseat = 45;
+        }else if(type.equalsIgnoreCase("LUXURY")){
+            countseat = 24;
+        }else if(type.equalsIgnoreCase("STANDARD")){
+            countseat = 22;
+        }
+//        int countseat = Integer.parseInt(request.getParameter("countseat"));
         String licenseplate = request.getParameter("licenseplate");
         Cars cars = new Cars(name, type, countseat, licenseplate);
         CarRepository cr = new CarRepository();
@@ -62,7 +75,7 @@ public class AddCarServlet extends HttpServlet {
                 SeatRepository sr = new SeatRepository();
                 sr.insertSeats(i,c.getId());
             }
-            response.sendRedirect("list_car.jsp");
+            response.sendRedirect("listcar");
         } else{
             response.sendRedirect("addcar");
         }

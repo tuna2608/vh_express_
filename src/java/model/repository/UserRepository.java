@@ -178,15 +178,15 @@ public class UserRepository {
         }
         return null;
     }
-    
-    public Users getUserById(String id) {
+
+    public Users getUserById(int id) {
         Users u = new Users();
         String sql = "SELECT * FROM users WHERE id = ?";
 
         try {
             con = (Connection) new DBContext().getConnection();
             ps = con.prepareStatement(sql);
-            ps.setString(1, id);
+            ps.setInt(1, id);
 
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -197,11 +197,10 @@ public class UserRepository {
             ps.close();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("khong lay dc email");
+            System.out.println("ERROR getUserById ");
         }
         return null;
     }
-    
     
 
     public ArrayList<Users> getListUser() {
@@ -232,7 +231,6 @@ public class UserRepository {
         }
         return null;
     }
-    
 
     public ArrayList<Users> getListStaff() {
         ArrayList<Users> list = new ArrayList<>();
@@ -330,6 +328,114 @@ public class UserRepository {
         }
     }
 
+    public Users getDriver(int id) {
+        String sql = "SELECT * FROM users WHERE id = ? AND authority = 'ROLE_DRIVER'";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);  // Set the ID parameter
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                int idUser = rs.getInt("id");
+                String fullname = rs.getString("fullname");
+                String email = rs.getString("email");
+                String age = rs.getString("age");
+                String phone = rs.getString("phone");
+                String authority = rs.getString("authority");
+                String address = rs.getString("address");
+                String gender = rs.getString("gender");
+                Users user = new Users(idUser, email, fullname, age, phone, authority, address, gender);
+                return user;
+            }
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Error in User repo");
+        } finally {
+            // Close database resources (con, ps, rs) in a 'finally' block
+            // to ensure they are closed even in case of an exception.
+            // Handle this properly in your code.
+        }
+        return null;
+    }
+
+    public ArrayList<Users> getAllDrivers() {
+
+        ArrayList<Users> drivers = new ArrayList<>();
+        String sql = "SELECT * FROM users WHERE authority = 'ROLE_DRIVER'";
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                int idUser = rs.getInt("id");
+                String fullname = rs.getString("fullname");
+                String email = rs.getString("email");
+                String age = rs.getString("age");
+                String phone = rs.getString("phone");
+                String authority = rs.getString("authority");
+                String address = rs.getString("address");
+                String gender = rs.getString("gender");
+                Users user = new Users(idUser, email, fullname, age, phone, authority, address, gender);
+                drivers.add(user);
+            }
+            return drivers;
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Error in User repo");
+        } finally {
+            // Close database resources (con, ps, rs) in a 'finally' block
+            // to ensure they are closed even in case of an exception.
+            // Handle this properly in your code.
+        }
+        return null;
+    }
+
+    public void updateUser(Users user) {
+        String sql = "UPDATE users SET fullname = ?, age = ?, phone = ?, authority = ?, address = ?, gender = ? WHERE id = ?";
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, user.getFullname());
+            ps.setString(2, user.getAge());
+            ps.setString(3, user.getPhone());
+            ps.setString(4, user.getAuthority());
+            ps.setString(5, user.getAddress());
+            ps.setString(6, user.getGender());
+            ps.setInt(7, user.getId());
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Error in updating user information");
+        }
+    }
+    public void editProfile(Users user){
+        String sql = "UPDATE users SET fullname = ?, age = ?, phone = ?, address = ?, gender = ? WHERE id = ?";
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setString(1, user.getFullname());
+            ps.setString(2, user.getAge());
+            ps.setString(3, user.getPhone());
+            ps.setString(4, user.getAddress());
+            ps.setString(5, user.getGender());
+            ps.setInt(6, user.getId());
+
+            ps.executeUpdate();
+            ps.close();
+        } catch (Exception e) {
+            System.out.println(e);
+            System.out.println("Error Edit Profile");
+        }
+    }
+    
+
     public static void main(String[] args) {
         UserRepository ur = new UserRepository();
         String fullname = new String("Nguyen Anh Tu");
@@ -361,7 +467,7 @@ public class UserRepository {
 //        int id = 12;
 //        System.out.println(ur.deleteUser(id));
 //        System.out.println(ur.getUser(email));
-        System.out.println(ur.getUserById("2"));
+//        System.out.println(ur.getUserById("2"));
     }
 
 }

@@ -41,7 +41,6 @@ public class ListCarrouteServlet extends HttpServlet {
         int to = Integer.parseInt(request.getParameter("to"));
         String dateStr = request.getParameter("datestart");
         Date date = null;
-
         if (dateStr != null && !dateStr.isEmpty()) {
             try {
                 date = Date.valueOf(dateStr);
@@ -82,18 +81,17 @@ public class ListCarrouteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        CarRouteRepository crr = new CarRouteRepository();
-//        ArrayList<Carroutes> crList = crr.getListCarroutes();
-//        HttpSession session = request.getSession(true);
-//        request.setAttribute("crlistS", crList);
-//        String authority = (String) session.getAttribute("authority");
-//        if (authority.equalsIgnoreCase("ROLE_MEMBER")) {
-//            request.getRequestDispatcher("list_carroute_member.jsp").forward(request, response);
-//        } else {
-//            request.getRequestDispatcher("list_carroute.jsp").forward(request, response);
-//        }
-
-        processRequest(request, response);
+        CarRouteRepository crr = new CarRouteRepository();
+        ArrayList<Carroutes> crList = crr.getListCarroutes();
+        HttpSession session = request.getSession(true);
+        request.setAttribute("crlistS", crList);
+        String authority = (String) session.getAttribute("authority");
+        if (authority.equalsIgnoreCase("ROLE_MEMBER")) {
+            request.getRequestDispatcher("list_carroute_member.jsp").forward(request, response);
+        } else {
+            request.getRequestDispatcher("list_carroute.jsp").forward(request, response);
+        }
+//        processRequest(request, response);
     }
 
     /**
