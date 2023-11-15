@@ -123,6 +123,32 @@ public class OrderRepository {
         }
         return totalRevenue;
     }
+    
+    public Orders getOrder(int id) {
+        String sql = "SELECT * FROM orders WHERE id = ?";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Orders(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getDate(5)
+                );
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error getOrder");
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         OrderRepository or = new OrderRepository();

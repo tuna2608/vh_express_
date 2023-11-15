@@ -14,35 +14,7 @@
         </style>
     </head>
     <body>
-        <!--        <form action="register" method="POST">
-                    <div class="container">
-        <%-- Hiển thị thông báo lỗi nếu có --%>
-        <div class="error-message">
         
-    </div>
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
-    <hr>
-
-    <label for="fullname"><b>Repeat Password</b></label>
-    <input type="text" placeholder="Enter Fullname" name="fullname" id="fullname" required>
-
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
-
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" id="password" required>
-
-    <hr>
-
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-    <button type="submit" class="registerbtn">Register</button>
-</div>
-
-<div class="container signin">
-    <p>Already have an account? <a href="#">Sign in</a>.</p>
-</div>
-</form>-->
         <!-- Section: Design Block -->
         <section class="vh-100">
             <div class="container-fluid h-custom">
@@ -153,6 +125,20 @@
     
 
     </body>
+    <script>
+        function validateEmail() {
+            var emailInput = document.getElementById("form3Example3");
+            var email = emailInput.value;
+            var emailFormat = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+
+            if (!email.match(emailFormat)) {
+                alert("Email không hợp lệ. Vui lòng nhập đúng định dạng email.");
+                emailInput.focus();
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

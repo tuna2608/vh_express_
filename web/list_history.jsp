@@ -141,11 +141,11 @@
             .box-list{
                 margin-top: 100px;
             }
-            
+
             form{
                 margin: 0px;
             }
-            
+
             .button-form{
                 border: none;
                 background-color: white;
@@ -158,40 +158,6 @@
 
     <body>
         <%@ include file="/include/header.jsp" %>
-
-        <!-- CAROUSEL-->
-        <!--        <div class="container">
-                    <div class="box-search">
-                        <form action="listcarroute" method="POST">
-                            <table width="100%" cellspacing="0" class="table-search">
-                                <tbody>
-                                    <tr>
-                                        <td>                                   
-                                            <select name="from" id="from" class="form-control col-sm-12">
-        <c:forEach var="location" items="${show1.listLocations}">
-            <option value="${location.id}">${location.province}</option>
-        </c:forEach>
-    </select>
-</td>
-<td>
-    <select class="form-control col-sm-12" name="to">
-        <c:forEach var="location" items="${show1.listLocations}">
-            <option value="${location.id}">${location.province}</option>
-        </c:forEach>
-    </select>
-</td>
-<td class="date">
-    <input class="form-control col-sm-12" type="date" name="datestart">
-</td>
-<td>
-    <input type="submit" class="btn-find-ticket" value="Tìm vé">
-</td>
-</tr>
-</tbody>
-</table>
-</form>
-</div>
-</div>-->
 
         <div class="box-list">
             <div class="title-page">
@@ -277,15 +243,12 @@
                                 </c:if>
                             </tr>
                         </c:forEach>
-
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <!--       
-            </body>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        </html>
+    </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</html>

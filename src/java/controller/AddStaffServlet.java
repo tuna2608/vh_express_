@@ -18,7 +18,7 @@ import model.repository.UserRepository;
  *
  * @author tuna
  */
-@WebServlet(name = "AddStaffServlet", urlPatterns = {"/addStaff"})
+@WebServlet(name = "AddStaffServlet", urlPatterns = {"/addstaff"})
 public class AddStaffServlet extends HttpServlet {
 
     /**
@@ -76,19 +76,19 @@ public class AddStaffServlet extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
         try {
-            String fullname = request.getParameter("fullname");
+            String fullname = new String(request.getParameter("fullname").getBytes("iso-8859-1"), "utf-8");
             String authority = request.getParameter("authority");
             String gender = request.getParameter("gender");
             String email = request.getParameter("email");
             String phone = request.getParameter("phone");
             String age = request.getParameter("age");
-            String address = request.getParameter("address");
+            String address = new String(request.getParameter("address").getBytes("iso-8859-1"), "utf-8");
 
             Users u = new Users(email, fullname, age, phone, authority, address, gender);
             UserRepository ur = new UserRepository();
             ur.insertStaff(u);
-            request.getRequestDispatcher("listuser").forward(request, response);
-
+//            request.getRequestDispatcher("listuser").forward(request, response);
+            response.sendRedirect("listuser");
         } catch (Exception e) {
             System.out.println(e);
         }

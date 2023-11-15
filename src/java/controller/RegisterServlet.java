@@ -92,6 +92,7 @@ public class RegisterServlet extends HttpServlet {
             if (isEmailExists(email)) {
                 System.out.println("kkk");
                 HttpSession session = request.getSession();
+                
                 session.setAttribute("mesRegister1", "Email is available. Please enter the other email !!");
                 response.sendRedirect("register"); // Chuyển hướng về trang đăng ký
             } else {
@@ -116,8 +117,10 @@ public class RegisterServlet extends HttpServlet {
                 System.out.println(str);
                 if (str.equals("SUCCESS")) {
                     HttpSession session = request.getSession();
+                    session.setAttribute("mesLogin","");
+                    request.setAttribute("status", "");
                     session.setAttribute("mesRegister", "Register successfull! Please check email to active account !!");
-                    response.sendRedirect("login");
+                    response.sendRedirect("login.jsp");
                 } else {
                     response.sendRedirect("register");
                 }

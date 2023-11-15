@@ -58,7 +58,7 @@ public class ListSeatServlet extends HttpServlet {
         session.setAttribute("curCarroute",carroute);
         session.setAttribute("curCar", car);
 //        response.sendRedirect("listseat");
-        request.getRequestDispatcher("list_seat.jsp").forward(request, response);
+        request.getRequestDispatcher("list_seat_test.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -96,6 +96,8 @@ public class UserRepository {
                     return "success_admin";
                 } else if ("ROLE_STAFF".equals(auth)) {
                     return "success_staff";
+                } else if ("ROLE_DRIVER".equals(auth)) {
+                    return "success_driver";
                 }
             }
             rs.close();
@@ -167,7 +169,17 @@ public class UserRepository {
 
             rs = ps.executeQuery();
             if (rs.next()) {
-                return new Users(rs.getInt(1), email, rs.getString(2), rs.getString("age"), rs.getString("phone"), rs.getString("authority"), rs.getString("address"), rs.getString("gender"));
+                return new Users(rs.getInt(1),
+                        rs.getInt(6),
+                        email, 
+                        rs.getString(4),
+                        rs.getNString(2),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getNString(10),
+                        rs.getString(11)
+                );
             }
 
             rs.close();

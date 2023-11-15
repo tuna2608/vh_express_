@@ -147,6 +147,39 @@ public class CarRouteRepository {
         }
         return null;
     }
+    
+    public ArrayList<Carroutes> searchCarroutesByDriver(int driver_id) {
+
+        ArrayList<Carroutes> list = new ArrayList<>();
+
+        String sql = "Select * from carroutes where user_id = ?";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, driver_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Carroutes c = new Carroutes(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getDate(8),
+                        rs.getInt(9)
+                );
+                list.add(c);
+            }
+            return list;
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Lỗi get list trong car route repo");
+        }
+        return null;
+    }
+    
 
     public ArrayList<Carroutes> searchCarroutesByFrom(int from) {
 
@@ -476,6 +509,7 @@ public class CarRouteRepository {
 //        crr.createCarroutes(cr);
 
 //        System.out.println(crr.getbyOrder(1));
-        System.out.println(crr.getByCarUser(4, 4));
+//        System.out.println(crr.getByCarUser(4, 4));
+        System.out.println(crr.searchCarroutesByDriver(2));
     }
 }

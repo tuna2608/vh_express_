@@ -9,8 +9,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:useBean class="model.repository.LocationRepository" id="show1"></jsp:useBean>
 <jsp:useBean class="model.repository.SeatRepository" id="show2"></jsp:useBean>
-
-
     <!DOCTYPE html>
     <html>
         <head>
@@ -36,6 +34,7 @@
                             }*/
                 html,body{
                     width:100%;
+                    height: auto;
                 }
                 .body{
                     margin: 10px 0px;
@@ -140,38 +139,110 @@
                 .left .title-page{
                     margin-bottom: 20px;
                 }
-                
+
                 .example-color{
                     width: 100%;
                     padding: 10px 20px;
                     display: flex;
                     justify-content: space-around;
                 }
-                
+
                 .check-box{
                     display: flex;
                     gap: 10px;
                     align-items: center;
                 }
-                
+
                 .check-color{
                     width: 30px ;
                     height: 30px;
                     background-color: var(--primary);
                     border: 1px black solid;
-                    border-radius: 5px; 
+                    border-radius: 5px;
                 }
-                
+
                 .uncheck-color{
                     background-color: white
                 }
-                
+
                 .booked-color{
                     background-color: rgb(180, 180, 180)
                 }
-                
+
                 .payed{
                     background-color: red;
+                }
+
+                /*                .all-seats{
+                                    margin-right: 20px;
+                                    padding: 20px;
+                                    background-color: #ed969e;
+                                    display: flex;
+                                    justify-content: space-around;
+                                    flex-wrap: wrap;
+                                }*/
+
+                .list-seats{
+                    width: 50%;
+                    /* background-color: antiquewhite; */
+                    display: flex;
+                    justify-content: space-around;
+                    gap: 100px;
+                    /* flex-wrap: wrap; */
+
+                    /* justify-content: space-around; */
+                }
+
+                .level{
+                    width: 30%;
+                }
+                h3{
+                    text-align: center;
+                }
+
+                .seats{
+                    padding: 70px 10px 20px 10px;
+                    position: relative;
+                    width: 100%;
+                    display: flex;
+                    justify-content: space-between;
+                    border: 2px solid black;
+                    border-radius: 10px;
+                }
+
+                .seat-left{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: left;
+                    gap: 20px;
+                }
+
+                .seat-right{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: right;
+                    gap: 20px;
+                }
+
+                .default{
+                    width: 100%;
+                    position: absolute;
+                    display: flex;
+                    top: 0;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+
+                .driver{
+                    padding: 10px;
+                    border-radius: 10px;
+                    background-color: #20c997;
+                }
+
+                .door{
+                    width: 10px;
+                    height: 50px;
+                    background-color: #20c997;
                 }
             </style>
         </head>
@@ -223,17 +294,17 @@
                             <div class="check-color"></div>
                             <p>Checked</p>
                         </div>
-                        
+
                         <div class="check-box">
                             <div class="check-color uncheck-color"></div>
                             <p>Unchecked</p>
                         </div>
-                        
+
                         <div class="check-box">
                             <div class="check-color booked-color"></div>
                             <p>Booked</p>
                         </div>
-                        
+
                         <div class="check-box">
                             <div class="check-color payed"></div>
                             <p>Payed</p>
@@ -243,25 +314,157 @@
                         <div class="all-seats">
                             <c:forEach var="ticket" items="${tlistS}">
                                 <c:if test="${ticket.status == 0}">
-                                    <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  onClick="handleClick(this,${curCarroute.price})"/>
-                                    <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat ">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    <div>
+                                        <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  onClick="handleClick(this,${curCarroute.price})"/>
+                                        <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat ">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    </div>
                                 </c:if>
                                 <c:if test="${ticket.status == 1}">
-                                    <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  disabled/>
-                                    <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat booked">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    <div>
+                                        <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  disabled/>
+                                        <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat booked">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    </div>
+
                                 </c:if>
                                 <c:if test="${ticket.status == 2}">
-                                    <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  disabled/>
-                                    <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat payed">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    <div>
+                                        <input type="checkbox" name="ticket" id="${show2.getById(ticket.seat_id).seat_number}"  disabled/>
+                                        <label for="${show2.getById(ticket.seat_id).seat_number}" class="seat payed">${show2.getById(ticket.seat_id).seat_number}</label>
+                                    </div>
                                 </c:if>
                             </c:forEach>
                         </div>
                     </form>
                 </div>
-
-
             </div>
         </div>
+        <form>
+            <div class="list-seats">
+                <div class="level">
+                    <h3> Tầng 1 </h3>
+                    <div class="seats">
+                        <div class="default">
+                            <div class="driver">Driver</div>
+                            <div class="door"></div>
+                        </div>
+                        <div class="seat-left">
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">1</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">2</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">3</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">4</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">5</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">6</label>
+                            </div>
+                        </div>
+                        <div class="seat-right">
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">7</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">8</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">9</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">10</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">11</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">12</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="level">
+                    <h3> Tầng 2 </h3>
+                    <div class="seats">
+                        <div class="default">
+                            <div class="driver">Driver</div>
+                            <div class="door"></div>
+                        </div>
+                        <div class="seat-left">
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">13</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">14</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">15</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat">16</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">17</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">18</label>
+                            </div>
+                        </div>
+                        <div class="seat-right">
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">19</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">20</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">21</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">22</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">23</label>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="" />
+                                <label for="" class="seat ">24</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
         <script>
             const seatList = document.getElementById("seat-list");
             const total = document.getElementById("total");

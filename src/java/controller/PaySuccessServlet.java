@@ -5,7 +5,7 @@
 package controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.entity.Orders;
+import model.entity.Tickets;
 import model.repository.OrderRepository;
-import model.repository.SeatRepository;
 import model.repository.TicketRepository;
 
 /**
@@ -35,19 +35,7 @@ public class PaySuccessServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        OrderRepository or = new OrderRepository();
-        HttpSession session = request.getSession();
-        Orders o = (Orders) session.getAttribute("cur_order");
-        System.out.println(o.getId());
-        or.updateStatusOrder(o.getId());
         
-        //update status = 2 ticket in order
-        TicketRepository tr = new TicketRepository();
-        System.out.println(o.getId());
-        tr.updatePayment(o.getId());
-        
-        request.getRequestDispatcher("payment.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -62,7 +50,24 @@ public class PaySuccessServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        OrderRepository or = new OrderRepository();
+        HttpSession session = request.getSession();
+        Orders o = (Orders) session.getAttribute("cur_order");
+//        System.out.println(o.getId());
+        or.updateStatusOrder(o.getId());
+        
+        //update status = 2 ticket in order
+        TicketRepository tr = new TicketRepository();
+        System.out.println(o.getId());
+        tr.updatePayment(o.getId());
+        
+        ArrayList<Tickets> tlist = tr.getTicketsByOrder(o.getId());
+//        System.out.println(tlist);
+        session.setAttribute("tListS", tlist);
+        
+        request.getRequestDispatcher("payment.jsp").forward(request, response);
     }
 
     /**

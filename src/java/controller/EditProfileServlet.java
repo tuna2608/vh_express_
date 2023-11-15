@@ -69,6 +69,7 @@ public class EditProfileServlet extends HttpServlet {
         Users u_new = (Users) ur.getUserById(u.getId());
         System.out.println(u_new);
         session.setAttribute("cur_user", u_new);
+//        response.sendRedirect("edit_profile.jsp");
         request.getRequestDispatcher("edit_profile.jsp").forward(request, response);
 //        processRequest(request, response);
     }
@@ -98,7 +99,10 @@ public class EditProfileServlet extends HttpServlet {
         ur.editProfile(u_new);
         System.out.println("kkk");
         session.setAttribute("msgEditProfile", "Edit successfull !!!");
+//        response.sendRedirect("edit_profile.jsp");
         request.getRequestDispatcher("edit_profile.jsp").forward(request, response);
+//        request.getRequestDispatcher("editprofile").forward(request, response);
+
     }
 
     /**

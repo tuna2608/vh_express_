@@ -171,7 +171,7 @@
                                     ${curCarroute.price}
                                 </td>
                                 <td class="delete-column">
-                                    <a href=""><i class="fa-solid fa-trash-can"></i></a>
+                                    <a href="" onclick="messconfirm(${ticket.id})"><i class="fa-solid fa-trash-can"></i></a>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -181,6 +181,15 @@
                 <input class="button-form" type="submit" value="Continue">
             </form>
         </div>
+                
+        <script>
+            function messconfirm(id) {
+                var option = confirm('Are you sure to delete');
+                if (option === true) {
+                    window.location.href = 'deleteticket?tid=' + id;
+                }
+            }
+        </script>        
         <script src="https://kit.fontawesome.com/4c84863d74.js" crossorigin="anonymous"></script>
     </body>
 </html>

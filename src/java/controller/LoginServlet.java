@@ -109,10 +109,15 @@ public class LoginServlet extends HttpServlet {
                     response.sendRedirect("welcome_admin.jsp");
                 } else if ("ROLE_STAFF".equals(userAuthority)) {
                     response.sendRedirect("welcome_staff.jsp");
+                } else if("ROLE_DRIVER".equals(userAuthority)){
+                    System.out.println("kkk");
+                    response.sendRedirect("welcome_driver.jsp");
                 } else {
-                    response.sendRedirect("welcome.jsp"); // Trường hợp mặc định
+                    response.sendRedirect("welcome.jsp");
                 }
             } else {
+                session.setAttribute("status", "");
+                session.setAttribute("mesRegister","");
                 session.setAttribute("mesLogin","Error, invalid Email or password, please enter again !!");
                 response.sendRedirect("login");
             }

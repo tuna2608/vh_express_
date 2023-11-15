@@ -40,9 +40,11 @@ public class CreateTicketServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+        
         String tickets;
         tickets = request.getParameter("lticket");
-//        System.out.println(seats);
+//        System.out.println(tickets);
 
         String[] listticket = tickets.split(",");
         int[] ticketids = new int[listticket.length];
@@ -64,14 +66,15 @@ public class CreateTicketServlet extends HttpServlet {
         for(int ticketid : ticketids){
             total +=price;
             Seats s = sr.getSeat(ticketid, idCar);
+            System.out.println(s);
             Tickets t = tr.getTicketByRouteSeat(crs.getId(),s.getId());
             ltickets.add(t);
         }
         
-        //test
-//        for(Tickets t : ltickets){
-//            System.out.println(t);
-//        }
+//        test
+        for(Tickets t : ltickets){
+            System.out.println(t);
+        }
         
         session.setAttribute("lticketS", ltickets);
         session.setAttribute("totalPrice", total);
@@ -138,6 +141,7 @@ public class CreateTicketServlet extends HttpServlet {
         TicketRepository tr = new TicketRepository();
         SeatRepository sr = new SeatRepository();
         ArrayList<Tickets> ltickets = (ArrayList<Tickets>) session.getAttribute("lticketS");
+        System.out.println(ltickets);
         ArrayList<Tickets> ltickets_new = new ArrayList<>();
         for(Tickets t : ltickets){
             String passName = new String(request.getParameter("passen_name"+t.getId()).getBytes("iso-8859-1"), "utf-8");

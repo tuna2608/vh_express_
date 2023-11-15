@@ -173,6 +173,83 @@ public class TicketRepository {
         
         return null;
     }
+    
+    public int getNumTicketsByRoute2(int crr_id) {
+        int count = 0;
+        String sql = "SELECT * FROM tickets where route_id = ? and status = 2";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, crr_id);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+            return count;
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Lỗi getNumTicketsByRoute2");
+        }
+        return 0;
+    }
+    
+    public int getNumTicketsByRoute1(int crr_id) {
+        int count = 0;
+        String sql = "SELECT * FROM tickets where route_id = ? and status = 1";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, crr_id);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
+            }
+            return count;
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Lỗi getNumTicketsByRoute2");
+        }
+        return 0;
+    }
+    
+    public ArrayList<Tickets> getTicketsByOrder(int o_id) {
+        ArrayList<Tickets> list = new ArrayList<>();
+        String sql = "SELECT * FROM tickets where order_id = ?";
+
+        try {
+            con = (Connection) new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+
+            ps.setInt(1, o_id);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Tickets t = new Tickets(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getNString(6),
+                        rs.getNString(7));
+                list.add(t);
+            }
+            return list;
+        } catch (Exception e) {
+            System.err.println(e);
+            System.out.println("Lỗi getTicketsByOrder");
+        }
+        return null;
+    }
+    
+    public void deleteTicket(){
+        
+    }
 
     public static void main(String[] args) {
         TicketRepository tr = new TicketRepository();

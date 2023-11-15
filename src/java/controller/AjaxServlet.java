@@ -25,6 +25,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.entity.Orders;
+import model.repository.OrderRepository;
 
 /**
  *
@@ -90,8 +93,18 @@ public class AjaxServlet extends HttpServlet {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
+        
+        HttpSession session = request.getSession(true);
+        int orderId = Integer.parseInt(request.getParameter("orderNumber"));
+        System.out.println(orderId);
+        OrderRepository or = new OrderRepository();
+        Orders o = or.getOrder(orderId);
+        System.out.println(o);
+        session.setAttribute("cur_order", o);
+        
         long amount = Integer.parseInt(request.getParameter("amount")) * 100;
-        System.out.println(amount);
+        session.setAttribute("totalPrice", amount);
+//        System.out.println(amount);
 //        double amountDouble = Double.parseDouble(request.getParameter("amount"));
 //        long amount = (long) (amountDouble);
         

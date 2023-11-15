@@ -42,6 +42,7 @@
 
 
                 form{
+                    padding: 20px 0px;
                     margin: 10px;
                     width:90%;
                     background-color: #419197;
@@ -121,13 +122,16 @@
                     text-align: center;
                     color: greenyellow;
                 }
-
+                h3{
+                    color: red;
+                }
             </style>
         </head>
         <body>
         <%@ include file="/include/header.jsp" %>
         <div class="body">
             <form action="createticket" method="POST">
+                <h3>Please take photo this page</h3>
                 <div class="title">Order Number: ${cur_order.id} </div>
                 <table width="100%" border="1">
                     <thead>
@@ -140,7 +144,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach var="ticket" items="${litcket_newS}">
+                        <c:forEach var="ticket" items="${tListS}">
                             <tr class="t-row">
                                 <td class="passen-column">
                                     <div>Name passenger: ${ticket.passenger_name}</div>
@@ -170,7 +174,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
-                <div>Total: ${totalPrice}</div>
+                <div>Total: ${totalPrice/100}</div>
                 <!--<input class="button-form" type="submit" value="Continue">-->
             </form>
 <!--            <form action="ajax" method="post">

@@ -118,7 +118,7 @@
         <%@ include file="/include/header.jsp" %>
         <%@ include file="/include/sidebar.jsp" %>
         <div class="body">
-            <form action="addStaff" method="POST" class="form-box">
+            <form action="addstaff" method="POST" class="form-box">
                 <div class="title-page">
                     Create Staff and Driver
                 </div>
@@ -132,8 +132,9 @@
                         <label for="authority">Authority : </label>
                         <select name="authority" id="authority">
                             <option value="ROLE_STAFF">STAFF</option>
-                            <option value="ROLE_ADMIN">ADMIN</option> 
+                            <option value="ROLE_MEMBER">MEMBER</option> 
                             <option value="ROLE_DRIVER">DRIVER</option>
+                            <option value="ROLE_ADMIN">ADMIN</option>
                         </select>
                     </div>
                     <div class="form-items-select">
